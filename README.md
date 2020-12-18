@@ -5,9 +5,9 @@ A tool for educators. Easily update due dates from previous terms' Common Cartri
 LMS Migrator is designed for educators who have better things to do than click a million buttons to update their online classrooms.
 
 ## What does it do?
-LMS Migrator looks for a previous term's course content, which you can export and download from your LMS. Use the filename **old_course.imscc** when you save it.
+LMS Migrator looks for a previous term's course content, which you can export and download from your LMS. Use the filename *old_course.imscc* when you save it.
 
-The script unpacks the contens of your old course, updating basic metadata like assignment names, availability dates, and due dates according to what you specify in a stripped-down syllabus. It then re-bundles the updated course as **new_course.imscc**, which is ready for you to upload back to your LMS.
+The script unpacks the contens of your old course, updating basic metadata like assignment names, availability dates, and due dates according to what you specify in a stripped-down syllabus. It then re-bundles the updated course as *new_course.imscc*, which is ready for you to upload back to your LMS.
 
 ## Is it compatable with my LMS?
 Right now, LMS Migrator has only been tested with the [Canvas LMS](https://www.instructure.com/canvas/). Tests with other LMS platforms are pending.
@@ -21,22 +21,32 @@ Make sure the program and its requirements are installed (see *Installation* and
 	* new_syllabus.xlsx, an Excel spreadsheet that contains a simplified syllabus. Be sure you follow the template that's provided in the `templates` folder above!
 
 **If you're using the LMS Migrator Python script:**
+
 3. Open a command line / terminal and navigate to the folder `lms_migrator` (or whatever you decided to name it) where LMS Migrator, your syllabus, and the old course materials are stored.
+
 4. Type the following in exactly, or simply copy/paste it. `python3 lms_migrator.py`
+
 5. Hit enter and let the program run. Take note of any messages it displays.
 
 **If you're using LMS Migrator via one of the pre-built executable files.**
+
 3. Navigate to the folder `lms_migrator` (or whatever you decided to hame it) where LMS Migrator, your syllabus, and the old course materials are stored. You can do this in a graphical file explorer (such as Finder, Windows Explorer, etc.), or in a terminal window.
+
 4. Double-click the `lms_migrator` program to run it, or execute it via the command line.
+
 5. Take note of any messages it displays!
 
 **Either way, you're essentially done.**
+
 6. Upload *new_course.imscc* to your LMS. **Important:** Always double-check that names, due dates, and other parameters were modified the way that you expected.
+
 7. That's it! Feel free to reach out if you have any feedback!
 
 ## Installation
-Download `lms_migrator.py` and the template `new_syllabus.xlsx` to a directory of your choice on your computer. That's it
+Download *lms_migrator.py* and the template *new_syllabus.xlsx* to a directory of your choice on your computer. 
+
 If you prefer, there are also pre-built binaries in the `binaries` directory. No guarantee is made that these will work on your system, and they may not be the most up-to-date version of LMS Migrator. Use of the Python script is recommended.
+
 **Either way, LMS Migrator must be installed in the same folder / directory as your syllabus file (`new_syllabus.xlsx`) and your exported course content from the previous term (`old_course.imscc`).**
 
 ## But really, how do I install it?
@@ -54,5 +64,5 @@ pip3 install beautifulsoup4==4.9.3, lxml==4.5.0, openpyxl==3.0.5
 3. *That's it!* If you didn't receive any error messages along the way, you should be all set. See the directions under *How do I use it?* to continue.
 
 **Option B: Installing LMS Migrator via a Pre-Built Executable**
-1. Navigate to the `binaries` folder above. Download the version of LMS Migrator that is best suited for your computer (OSX, Windows, etc.).
+1. Navigate to the *binaries* folder above. Download the version of LMS Migrator that is best suited for your computer (OSX, Windows, etc.).
 2. *That's it!* You're ready to go. See the directions under *How do I use it?* to continue.
