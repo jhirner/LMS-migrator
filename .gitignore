@@ -1,0 +1,7 @@
+# From development of LMS Migrator in Jupyter notebook
+.ipynb_checkpoints
+migrator.ipynb
+
+# Files used in testing
+old_course.imscc
+new_course.imscc
