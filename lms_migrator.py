@@ -8,48 +8,54 @@ specifications in a properly formatted new_syllabus.xlsx file.
 Warning: Use this tool with caution. Not responsible for loss of data!
 
 This script requires the following modules and their dependencies:
-    - openpyxl, which is responsible for reading new_syllabus.xlsx
-    - BeautifulSoup 4, which facilitates searching through the XML data exported
-      by the LMS
+	- openpyxl, which is responsible for reading new_syllabus.xlsx
+	- BeautifulSoup 4, which facilitates searching through the XML data exported
+	  by the LMS
 """
 
 
 
 # ==== IMPORT THE REQUIRED MODULES ==== #
 
-import openpyxl as opxl           # Reads the Excel-formatted syllabus.
-from bs4 import BeautifulSoup     # For parsing XML course metadata.
-from shutil import copytree       # Copies old course content to new folder.
-from shutil import rmtree         # For deleting files after completion.
-import os                         # Used for gathering working directory info.
-import datetime                   # Handle basic date / time manipulations.
-from zipfile import ZipFile       # Compression for .imscc archive files.
-
-
+import openpyxl as opxl		   # Reads the Excel-formatted syllabus.
+from bs4 import BeautifulSoup	 # For parsing XML course metadata.
+from shutil import copytree	   # Copies old course content to new folder.
+from shutil import rmtree		 # For deleting files after completion.
+import os						 # Used for gathering working directory info.
+import datetime				   # Handle basic date / time manipulations.
+from zipfile import ZipFile	   # Compression for .imscc archive files.
+from sys import exit			  # Handles script termination
 
 
 # ==== BEGIN DEFINING FUNCTIONS ==== #
 
 def compress_new_course(new_course_filename):
-    """
-    This function accepts the filename of the new semester's course cartridge,
-    which it generates.
-    It returns nothing.
-    """
-    
-    # Make a list of relative paths to all files within new_course, including
-    # within subdirectories.
-    all_file_paths = []
-    for root, directories, files in os.walk("new_course"):
-    	for filename in files:
-    		filepath = os.path.join(root, filename)
-    		all_file_paths.append(filepath)
-    
-    with ZipFile("new_course.imscc", mode = "w") as new_course_zip:
-    	for file in all_file_paths:
-    		new_course_zip.write(file)
-    
-    return
+	"""
+	This function accepts the filename of the new semester's course cartridge,
+	which it generates.
+	It returns nothing.
+	"""
+	
+	# Print a friendly update.
+	print("Bundling the modified course content, new_course.imscc...",
+		  end = " ")
+	
+	# Make a list of relative paths to all files within new_course, including
+	# within subdirectories.
+	all_file_paths = []
+	for root, directories, files in os.walk("new_course"):
+		for filename in files:
+			filepath = os.path.join(root, filename)
+			all_file_paths.append(filepath)
+	
+	with ZipFile("new_course.imscc", mode = "w") as new_course_zip:
+		for file in all_file_paths:
+			new_course_zip.write(file)
+	
+	# Print a status update.
+	print("Done.")
+	
+	return
 
 
 def extract_prev_course(prev_course_filename):
@@ -59,14 +65,22 @@ def extract_prev_course(prev_course_filename):
 	It returns nothing.
 	"""
 	
+	# Print a status update.
+	print("Unpacking your previous term's course file, old_course.imscc...",
+		  end = " ")
+
 	# Make a new directory, old_course. If it already exists, empty it.
 	rmtree("old_course", ignore_errors = True)
 	os.mkdir("old_course")
 	
+	
 	# Unpack the common cartridge file.
 	with ZipFile(prev_course_filename, mode = "r") as old_course_zip:
 		old_course_zip.extractall(path = "old_course")
-		
+	
+	# Print a status update.
+	print("Done.")
+
 	return
 
 
@@ -79,6 +93,10 @@ def extract_metadata(syllabus_filename):
 	is defined in a comment below.
 	"""
 
+	# Print a status update.
+	print("Extracting learning activity metadata from new_syllabus.xlsx...",
+		  end = " ")
+
 	# Open the Excel workbook & read the worksheet named "syllabus"
 	syllabus_wb = opxl.load_workbook(syllabus_filename)
 	syllabus_ws = syllabus_wb["syllabus"]
@@ -86,14 +104,14 @@ def extract_metadata(syllabus_filename):
 	# Note: syllabus_ws.values is a list generator, providing one tuple for
 	# each data row present. The required format is derived from the format
 	# of new_syllabus.xlsx: 
-	#    ('Previous Semester Activity Title', 'New Semester Activity Title',
-	#     'Available Date', 'Available Time', 'Due Date', 'Due Time',
-	#     'Lock Date', 'Lock Time')
+	#	('Previous Semester Activity Title', 'New Semester Activity Title',
+	#	 'Available Date', 'Available Time', 'Due Date', 'Due Time',
+	#	 'Lock Date', 'Lock Time')
 
 	# Extract all the syllabus data to a list of tuples, with one tuple for
 	# each row in the Excel syllabus.
 	syllabus_data = list(syllabus_ws.values)
-	
+		
 	# Create the extracted_meta metadata dictionary, which will be populated
 	# with individual learning activities. The previous semester's activity 
 	# names are the keys in this dictionary, and the values are a subdictionary
@@ -104,7 +122,7 @@ def extract_metadata(syllabus_filename):
 	#				"new_due_datetime" : new_due_datetime,
 	#				"new_lock_datetime" : new_lock_datetime}
 	extracted_meta = {}
-	
+		
 	# Restructure the listed activity information from syllabus_data into the 
 	# extracted_meta metadata dictionary.
 	# Ignore the first list entry, which contains only the header row
@@ -120,46 +138,52 @@ def extract_metadata(syllabus_filename):
 		old_title = activity_meta[0]
 		
 		if activity_meta[2]:
-		    new_avail_datetime = datetime.datetime.combine(activity_meta[2],
-		    											   activity_meta[3])
+			new_avail_datetime = datetime.datetime.combine(activity_meta[2],
+														   activity_meta[3])
 		else:
-		    new_avail_datetime = None
+			new_avail_datetime = None
 		
 		if activity_meta[4]:
-		    new_due_datetime = datetime.datetime.combine(activity_meta[4],
-		    											 activity_meta[5])
+			new_due_datetime = datetime.datetime.combine(activity_meta[4],
+														 activity_meta[5])
 		else:
-		    new_due_datetime = None
+			new_due_datetime = None
 		
 		if activity_meta[6]:
-		    new_lock_datetime = datetime.datetime.combine(activity_meta[6],
-		    											  activity_meta[7])
+			new_lock_datetime = datetime.datetime.combine(activity_meta[6],
+														  activity_meta[7])
 		else:
-		    new_lock_datetime = None
-		
+			new_lock_datetime = None
+
 		# Add this activity's updated information to the extracted_meta
 		# metadata dictionary.
 		extracted_meta[old_title] = {"new_title" : activity_meta[1],
-		                             "new_avail_datetime" : new_avail_datetime,
-		                             "new_due_datetime" : new_due_datetime,
-		                             "new_lock_datetime" : new_lock_datetime}
-		                             
+									 "new_avail_datetime" : new_avail_datetime,
+									 "new_due_datetime" : new_due_datetime,
+									 "new_lock_datetime" : new_lock_datetime}
+	
+	# Print a status update.
+	print("Done.")
+									 
 	return extracted_meta
 
 
 def find_activities():
-    """
-    This function serves two closely related roles:
-         - Copy the prior semester's course content from the old_course
-           directory to the to new_course directory
-         - Make a list of subdirectories within new_course that are likely to
-           contain learning activities (quizzes, homework, etc.).
-    """
+	"""
+	This function serves two closely related roles:
+		 - Copy the prior semester's course content from the old_course
+		   directory to the to new_course directory
+		 - Make a list of subdirectories within new_course that are likely to
+		   contain learning activities (quizzes, homework, etc.).
+	"""
+
+	# Print a status update.
+	print("Scanning the previous term's course data...", end = " ")
 
 	# Make a copy of the old course files.
 	# Ultimately, we'll edit the due dates and related metadata within
 	# new_course. Nothing is modified in old_course.
-    copytree("old_course", "new_course")
+	copytree("old_course", "new_course")
 
 	# Generate a list of copied learning activities.
 	# Scan the new_course directory. Learning activities (quizzes, assignments,
@@ -170,109 +194,113 @@ def find_activities():
 	# subdirectories that do not contain learning activities (e.g.:
 	# course_settings) based upon the number of characters present.
 
-    act_subdirs = [dir for dir in os.listdir("new_course") if (
-		                os.path.isdir("new_course/" + dir) and
-		                len(dir) > 20)
-		             ]
-    return act_subdirs
+	act_subdirs = [dir for dir in os.listdir("new_course") if (
+						os.path.isdir("new_course/" + dir) and
+						len(dir) > 20)
+					 ]
+	
+	# Print a status update.
+	print("Done.")
+	
+	return act_subdirs
 
 
 def format_datetime(local_dt):
-    """
-    This function accepts a local datetime object.
-    It converts it to a UTC-based datetime object, then generates a string
-    in the LMS's accepted date/time format, YYYY-MM-DDTHH:MM:SS, e.g:
-    2020-09-14T14:00:00.
-    """
-    
-    # Convert the local datetime into seconds from epoch, then into a UTC-
-    # referenced datetime object.
-    local_epoch_dt = float(local_dt.strftime("%s"))
-    utc_dt = datetime.datetime.utcfromtimestamp(local_epoch_dt)
-    
-    # Generate a date/time string in the expected format.
-    formatted_dt = utc_dt.strftime("%Y-%m-%dT%H:%M:%S")
-    
-    return formatted_dt
+	"""
+	This function accepts a local datetime object.
+	It converts it to a UTC-based datetime object, then generates a string
+	in the LMS's accepted date/time format, YYYY-MM-DDTHH:MM:SS, e.g:
+	2020-09-14T14:00:00.
+	"""
+	
+	# Convert the local datetime into seconds from epoch, then into a UTC-
+	# referenced datetime object.
+	local_epoch_dt = float(local_dt.strftime("%s"))
+	utc_dt = datetime.datetime.utcfromtimestamp(local_epoch_dt)
+	
+	# Generate a date/time string in the expected format.
+	formatted_dt = utc_dt.strftime("%Y-%m-%dT%H:%M:%S")
+	
+	return formatted_dt
 
 
 def update_file_meta(rel_path_to_file):
-    """
-    This function accepts the relative path to a file that has already been
-    verified as containing learning activity metadata.
-    It fills several roles:
-         - Parse the XML file to determine the activity's <title> value.
-         - Fetch new metadata for this activity from the course_metadata dict.
-         - Update metadata in the XML file for 3 key tags: <available_at>,
-           <due_at>, and <lock_at>.
-    """
-    
-    # We'll want to reference the course_metadata dictionary and the list
-    # of previous learning activities that aren't on the new syllabus 
-    # as global variables.
-    global course_metadata
-    global undefined_activities
-    
-    # Open the XML file and instantiate Beautiful Soup parsing.
-    xml_file = open(rel_path_to_file, mode = "rt+", encoding = "utf-8")
-    # Snag the first line, which contains the good-practice XML declaration.
-    # Beautiful Soup erases it.
-    xml_declaration = xml_file.readline()
-    raw_xml = xml_file.read()
-    soup = BeautifulSoup(raw_xml, "xml")
-    
-    # Get the learning activity's title from the previous semester. Use it to
-    # look up the new metadata, which is stored as a subdict in the dictionary.
-    # If no such entry is found, add it to a list (undefined_acts) to be
-    # returned and ultimately printed to the user.
-    prev_title = soup.title.string
-    try:
-        new_metadata = course_metadata[prev_title]
-    except KeyError:
-        undefined_activities.append(prev_title)
-        return
-    
-    # If an modified title is specified, update it. Otherwise keep the previous
-    # title.
-    if new_metadata["new_title"]:
-        soup.title.string = new_metadata["new_title"]
-    else:
-        pass
-    
-    # If new available, due, or lock times are specified, update them.
-    # If not, delete the times that were copied over from the previous
-    # semester.
-    if new_metadata["new_avail_datetime"]:
-        unlock_at_str = format_datetime(new_metadata["new_avail_datetime"])
-    else:
-        unlock_at_str = ""
-        
-    if new_metadata["new_due_datetime"]:
-        due_at_str = format_datetime(new_metadata["new_due_datetime"])
-    else:
-        due_at_str = ""
+	"""
+	This function accepts the relative path to a file that has already been
+	verified as containing learning activity metadata.
+	It fills several roles:
+		 - Parse the XML file to determine the activity's <title> value.
+		 - Fetch new metadata for this activity from the course_metadata dict.
+		 - Update metadata in the XML file for 3 key tags: <available_at>,
+		   <due_at>, and <lock_at>.
+	"""
+	
+	# We'll want to reference the course_metadata dictionary and the list
+	# of previous learning activities that aren't on the new syllabus 
+	# as global variables.
+	global course_metadata
+	global undefined_activities
+	
+	# Open the XML file and instantiate Beautiful Soup parsing.
+	xml_file = open(rel_path_to_file, mode = "rt+", encoding = "utf-8")
+	# Snag the first line, which contains the good-practice XML declaration.
+	# Beautiful Soup erases it.
+	xml_declaration = xml_file.readline()
+	raw_xml = xml_file.read()
+	soup = BeautifulSoup(raw_xml, "xml")
+	
+	# Get the learning activity's title from the previous semester. Use it to
+	# look up the new metadata, which is stored as a subdict in the dictionary.
+	# If no such entry is found, add it to a list (undefined_acts) to be
+	# returned and ultimately printed to the user.
+	prev_title = soup.title.string
+	try:
+		new_metadata = course_metadata[prev_title]
+	except KeyError:
+		undefined_activities.append(prev_title)
+		return
+	
+	# If an modified title is specified, update it. Otherwise keep the previous
+	# title.
+	if new_metadata["new_title"]:
+		soup.title.string = new_metadata["new_title"]
+	else:
+		pass
+	
+	# If new available, due, or lock times are specified, update them.
+	# If not, delete the times that were copied over from the previous
+	# semester.
+	if new_metadata["new_avail_datetime"]:
+		unlock_at_str = format_datetime(new_metadata["new_avail_datetime"])
+	else:
+		unlock_at_str = ""
+		
+	if new_metadata["new_due_datetime"]:
+		due_at_str = format_datetime(new_metadata["new_due_datetime"])
+	else:
+		due_at_str = ""
 
-    if new_metadata["new_lock_datetime"]:
-        lock_at_str = format_datetime(new_metadata["new_lock_datetime"])
-    else:
-        lock_at_str = ""
+	if new_metadata["new_lock_datetime"]:
+		lock_at_str = format_datetime(new_metadata["new_lock_datetime"])
+	else:
+		lock_at_str = ""
 
-    # Update the XML tags with new values.
-    soup.unlock_at.string = unlock_at_str
-    soup.due_at.string = due_at_str
-    soup.lock_at.string = lock_at_str
-    
-    # Write the updated XML back to the file. Note that, weirdly, the soup
-    # object is a list that always contains exactly 1 entry -- that is, 
-    # a "tag" object containing updated XML code. Need to convert it to string.
-    xml_file.truncate(0)
-    xml_file.seek(0)
-    # Give the XML declaration back.
-    xml_file.write(xml_declaration)
-    xml_file.write(str(soup.contents[0]))
-    xml_file.close()
-    
-    return
+	# Update the XML tags with new values.
+	soup.unlock_at.string = unlock_at_str
+	soup.due_at.string = due_at_str
+	soup.lock_at.string = lock_at_str
+	
+	# Write the updated XML back to the file. Note that, weirdly, the soup
+	# object is a list that always contains exactly 1 entry -- that is, 
+	# a "tag" object containing updated XML code. Need to convert it to string.
+	xml_file.truncate(0)
+	xml_file.seek(0)
+	# Give the XML declaration back.
+	xml_file.write(xml_declaration)
+	xml_file.write(str(soup.contents[0]))
+	xml_file.close()
+	
+	return
 
 
 
@@ -283,7 +311,7 @@ def update_file_meta(rel_path_to_file):
 # The following code is executed immediately upon calling lms_migrator.py
 
 print("""
-~ ~ ~ Welcome to LMS Migrator 1.0.1 ~ ~ ~
+~ ~ ~ Welcome to LMS Migrator 1.0.2 ~ ~ ~
 
 This tool updates a course cartridge file exported from your
 Learning Management System. For ease of use, run this program from a directory
@@ -305,19 +333,12 @@ To continue, please enter 'y'. To quit, enter any other value.
 
 user_continue = input("> ")
 if user_continue == "y" or user_continue == "Y":
-    pass
+	pass
 else:
-    print("Happy trails, partner.")
-    quit()
-
-
-# Call the extract_metadata() function to read new syllabus information from
-# new_syllabus.xlsx.
-course_metadata = extract_metadata("new_syllabus.xlsx")
+	exit("Quitting. Happy trails, partner.")
 
 # Unpack the contents of the previous semester's exported course cartridge.
 extract_prev_course("old_course.imscc")
-
 
 # Call the find_activities() function to copy the previous semester's course
 # data and generate a list of subdirectories that contain learning activities.
@@ -325,11 +346,19 @@ activity_subdirs = find_activities()
 total_activities = len(activity_subdirs)
 print("Found {} learning activities to update.".format(total_activities))
 
+# Call the extract_metadata() function to read new syllabus information from
+# new_syllabus.xlsx.
+course_metadata = extract_metadata("new_syllabus.xlsx")
+
 # Use counters to track how many activities have been successfully processed.
 # The undefined_activities list will capture any old learning activities that
 # cannot be exactly matched in new_syllabus.xlsx.
 modified_counts = 0
 undefined_activities = []
+
+# Print a status update.
+print("Modifying the new course content according to new_syllabus.xlsx...",
+      end = " ")
 
 # Iterate over all the subdirectories containing learning activities.
 for subdir in activity_subdirs:
@@ -337,17 +366,16 @@ for subdir in activity_subdirs:
 	# Check for metadata XML files. If present, call the update_file_meta()
 	# function to replace titles, due dates, etc., with the user
 	# specifications.
-    meta_file_list = ["assignment_settings.xml", "assessment_meta.xml"]
-    for meta_file in meta_file_list:
-        if meta_file in os.listdir("new_course/" + subdir):
-            update_file_meta("new_course/" + subdir + "/" + meta_file)
-            modified_counts += 1
-        else:
-            pass
-        
-    print("Progress: {} / {}".format(
-            modified_counts, total_activities),
-         end = "\r")
+	meta_file_list = ["assignment_settings.xml", "assessment_meta.xml"]
+	for meta_file in meta_file_list:
+		if meta_file in os.listdir("new_course/" + subdir):
+			update_file_meta("new_course/" + subdir + "/" + meta_file)
+			modified_counts += 1
+		else:
+			pass
+	
+# Print a status update	
+print("Done.")
 
 
 # Compress the new_course folder into a .imscc (standard zip) file ready
@@ -370,10 +398,14 @@ if len(undefined_activities) > 0:
 		print("\t", unmatched_activity)
 
 # For the sake of good housekeeping, delete the two directories we made here.
-rmtree("old_course")
-rmtree("new_course")
+print("\nTidying up...", end = " ")
+rmtree("old_course", ignore_errors = True)
+rmtree("new_course", ignore_errors = True)
+print("Done.")
 
-print("\nDone. Your updated course was saved as {}.".format(new_cartridge_name))
+print("\nMigration complete. Your updated course was saved as {}.".format(
+	  new_cartridge_name))
 print("It is ready to be uploaded to your LMS.")
-print("Thanks for using LMS Migrator. Have a nice life.\n")
-
+print("Be sure to review the status messages above for any potential errors.")
+print("\nThanks for using LMS Migrator. Have a nice life.\n")
+exit(0)
