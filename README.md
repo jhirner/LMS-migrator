@@ -28,7 +28,7 @@ Make sure the program and its requirements are installed (see *Installation* and
 ## Installation
 Download `lms_migrator.py` and the template `new_syllabus.xlsx` to a directory of your choice on your computer. That's it.
 
-## But really, how do I install it?**
+## But really, how do I install it?
 The vanilla installation directions above are the bare-basics. Here are some more detailed directions.
 1. **Determine if your computer has Python 3 installed.** This will provide the interpreter that's required to run LMS Migrator.
 	* You can do that by opening a terminal or command line and typing `python3`, followed by the enter key.
