@@ -16,7 +16,7 @@ Right now, LMS Migrator has only been tested with the [Canvas LMS](https://www.i
 Make sure the program and its requirements are installed (see *Installation* and *But really, how do I install it?*).
 1. It's recommended to make a new folder on your computer to keep things tidy & make sure your files are safe. You can call it anything you want, but let's use `lms_migrator` for clarity. **Important:** Always back up your course files before using LMS Migrator!
 2. Your new folder needs to have 3 files in it:
-	* lms_migrator.py, which is where the magic happens.
+	* lms_migrator.py *or* one of the pre-built executable files.
 	* old_course.imscc, the Common Cartridge export of your previous semester's course, which you can download from your LMS.
 	* new_syllabus.xlsx, an Excel spreadsheet that contains a simplified syllabus. Be sure you follow the template that's provided in the `templates` folder above!
 
