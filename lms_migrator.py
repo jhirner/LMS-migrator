@@ -283,7 +283,7 @@ def update_file_meta(rel_path_to_file):
 # The following code is executed immediately upon calling lms_migrator.py
 
 print("""
-~ ~ ~ Welcome to LMS Migrator 1.0 ~ ~ ~
+~ ~ ~ Welcome to LMS Migrator 1.0.1 ~ ~ ~
 
 This tool updates a course cartridge file exported from your
 Learning Management System. For ease of use, run this program from a directory
@@ -345,7 +345,7 @@ for subdir in activity_subdirs:
         else:
             pass
         
-    print("Updated: {}\tTotal copied from previous course:{}".format(
+    print("Progress: {} / {}".format(
             modified_counts, total_activities),
          end = "\r")
 
@@ -360,9 +360,9 @@ compress_new_course(new_cartridge_name)
 if len(undefined_activities) > 0:
 
 	print("""
-	\nFound _{}_ learning activities in the old course data that were not defined
+	\nFound _{}_ learning activities in the old course data that were not
 	defined in new_syllabus.xlsx.
-	These were copied to the new_course folder but could not be modified:
+	These were included in new_course.imscc, but could not be modified:
 	""".format(len(undefined_activities)))
 
 	undefined_activities.sort()
