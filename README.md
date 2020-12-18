@@ -59,7 +59,7 @@ You have options! You may directly use LMS Migrator *via the Python script* (Opt
 	* If you don't receive an error, that means Python is already on your computer! Simply enter `quit()` to exit out of Python again.
 2. *Install the supporting programs.* LMS Migrator requires the help of a few other Python-based tools to work. You can easily install them by copying/pasting the code below into your terminal / command line prompt. To ensure compatability, we'll specify the exact versions of these tools that were used in developing LMS Migrator. If you already have any of these installed, other versions will likely work, too.
 ```
-pip3 install beautifulsoup4==4.9.3, lxml==4.5.0, openpyxl==3.0.5
+pip3 install beautifulsoup4==4.9.3 lxml==4.5.0 openpyxl==3.0.5
 ```
 3. *That's it!* If you didn't receive any error messages along the way, you should be all set. See the directions under *How do I use it?* to continue.
 
