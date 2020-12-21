@@ -56,9 +56,9 @@ Make sure the program and its requirements are installed (see *Installation* and
 
 3. Navigate to the folder where you saved the LMS Migrator application.
 
-4. Double-click the icon to run the program & follow the prompts.
+4. Double-click the icon to run the program. It may be a little sluggish; that's normal!
 
-5. Take note of any messages it displays!
+5. Follow the prompts to update your course. Take note of any messages the program displays.
 
 **Either way, you're essentially done.**
 
