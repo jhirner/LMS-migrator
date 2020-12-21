@@ -57,6 +57,7 @@ Make sure the program and its requirements are installed (see *Installation* and
 3. Navigate to the folder where you saved the LMS Migrator application.
 
 4. Double-click the icon to run the program. It may be a little sluggish; that's normal!
+	* *Mac OSX users:* You may receive a warning window that says "lms_migrator cannot be opened because the developer cannot be verified." This error arises because Apple charges software developers for 'verification', but LMS Migrator is free & open source. You can still run the program by overriding the warning with [a few simple steps](https://support.apple.com/en-za/guide/mac-help/mh40616/mac).
 
 5. Follow the prompts to update your course. Take note of any messages the program displays.
 
