@@ -66,3 +66,6 @@ Make sure the program and its requirements are installed (see *Installation* and
 6. Upload the updated Common Cartridge file to your LMS. **Important:** Always double-check that names, due dates, and other parameters were modified the way that you expected.
 
 7. That's it! Feel free to reach out if you have any feedback!
+
+## Reaching out
+If you find LMS Migrator valuable, or if you're interested in contributing, please reach out to say so. Contact information is listed on [the author's GitHub page].(https://github.com/jhirner)
