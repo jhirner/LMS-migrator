@@ -1,4 +1,8 @@
 # LMS-migrator: Version History
+ 
+## Version 1.1.0 (Released 20 December 2020)
+* Added graphical interface built in *tkinter*.
+* Improved portability of pre-built executable for Mac OSX.
 
 ## Version 1.0.2 (Released 18 December 2020)
 * Further clarified user-facing progress updates.
