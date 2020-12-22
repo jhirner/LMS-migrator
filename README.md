@@ -33,7 +33,7 @@ pip3 install beautifulsoup4==4.9.3 lxml==4.5.0 openpyxl==3.0.5
 3. *That's it!* If you didn't receive any error messages along the way, you should be all set. See the directions under *How do I use it?* to continue.
 
 **Option B: Installing LMS Migrator via a Pre-Built Executable**
-1. Navigate to the *binaries* folder above. Download the version of LMS Migrator that is best suited for your computer (OSX, Windows, etc.).
+1. Navigate to the *binaries* folder above. Download the version of LMS Migrator that is best suited for your computer. Currently pre-built executables are available for Mac OSX and Ubuntu 20.04. (Sorry, but there is no pre-built executable available at this time for Windows 10. However, you can still run LMS Migrator directly from the Python script, *Option A*, above.)
 2. Double-click to unpack the program and save it to any folder you can conveniently find again.
 2. *That's it!* You're ready to go. See the directions under *How do I use it?* to continue.
 
