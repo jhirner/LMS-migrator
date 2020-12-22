@@ -1,5 +1,5 @@
 # LMS Migrator
-A tool for educators. Easily update due dates from previous terms' Common Cartridge.
+A tool for educators. Easily update due dates from previous terms' Common Cartridge file.
 
 ## Who is this for?
 LMS Migrator is designed for educators who have better things to do than click a million buttons to update their online classrooms.
@@ -42,6 +42,8 @@ Make sure the program and its requirements are installed (see *Installation* and
 1. It's recommended to make a new folder on your computer to keep things tidy & make sure your files are safe. You can call it anything you want, but let's use `lms_migrator` for clarity. **Important:** Always back up your course files before using LMS Migrator!
 2. Your new folder needs to have two files in it:
 	* The Common Cartridge export of your previous semester's course, which you can download from your LMS. For example, *old_course.imscc*.
+		* Not sure how to export your course? Click for directions using [Canvas](https://community.canvaslms.com/t5/Instructor-Guide/How-do-I-export-a-Canvas-course/ta-p/785) or [Blackboard](https://help.blackboard.com/Learn/Administrator/Hosting/Course_Management/Common_Cartridge_Course_Packages#download-the-course-package_OTP-8).
+		* If you given a choice, please select "IMS Common Cartridge v 1.1.0"; LMS Migrator has not yet been tested with other versions of the Common Cartridge format.
 	* An Excel spreadsheet that contains a simplified syllabus. **Be sure you follow the template that's provided in the `templates` folder above!** For example, *new_syllabus.xlsx*.
 
 **If you're using the LMS Migrator Python script:**
