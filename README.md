@@ -73,4 +73,4 @@ Make sure the program and its requirements are installed (see [*Installation*](#
 7. That's it! Feel free to reach out if you have any feedback!
 
 ## Reaching out
-If you find LMS Migrator valuable, or if you're interested in contributing, please reach out to say so. Contact information is listed on [the author's GitHub page].(https://github.com/jhirner)
+If you find LMS Migrator valuable, or if you're interested in contributing, please reach out to say so. Contact information is listed on [the author's GitHub page](https://github.com/jhirner).
