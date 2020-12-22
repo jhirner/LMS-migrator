@@ -9,13 +9,16 @@ LMS Migrator looks for a previous term's course content, which you can export an
 
 The script unpacks the contens of your old course, updating basic metadata like assignment names, availability dates, and due dates according to what you specify in a stripped-down syllabus. It then re-bundles the updated course as a new Common Cartridge file, which is ready for you to upload back to your LMS.
 
+It features a simple, user-friendly interface:
+![Screenshot of LMS Migrator window on Mac OSX](webassets/osx_1-1-1_screenshot.png?raw=true)
+
 ## Is it compatable with my LMS?
 Right now, LMS Migrator has only been tested with the [Canvas LMS](https://www.instructure.com/canvas/) using Common Cartridge version 1.1.0. It *ought* to work with other LMS platforms such as [Blackboard](https://www.blackboard.com/teaching-learning/learning-management), too, but it has not been tested yet. **please give LMS Migrator a try using other LMS platforms and [reach out](#reaching-out) to let us know how it works.**
 
 ## Installation
 Download *lms_migrator.py* and the template *new_syllabus.xlsx* to a directory of your choice on your computer. 
 
-If you prefer, there are also pre-built executable programs in the `binaries` directory. Although this is the easiest-to-use solution, the executables may not be compatable with your system. If you're comfortable running a Python script from a command line, that is the recommended method. Otherwise, give the pre-built executables are the way to go.
+If you prefer, there are also pre-built executable programs in the [*binaries*](binaries) directory. Although this is the easiest-to-use solution, the executables may not be compatable with your system. If you're comfortable running a Python script from a command line, that is the recommended method. Otherwise, give the pre-built executables are the way to go.
 
 ## But really, how do I install it?
 You have options! You may directly use LMS Migrator *via the Python script* (Option A, below), or you may install it *using one of the pre-built executable programs* (Option B, below). The former guarantees you the most up-to-date version of LMS Migrator, and it is more likely to work on your system. The latter offers easier installation, but it may not perform as well.
@@ -33,7 +36,7 @@ pip3 install beautifulsoup4==4.9.3 lxml==4.5.0 openpyxl==3.0.5
 3. *That's it!* If you didn't receive any error messages along the way, you should be all set. See the directions under *How do I use it?* to continue.
 
 **Option B: Installing LMS Migrator via a Pre-Built Executable**
-1. Navigate to the *binaries* folder above. Download the version of LMS Migrator that is best suited for your computer. Currently pre-built executables are available for Mac OSX and Ubuntu 20.04. (Sorry, but there is no pre-built executable available at this time for Windows 10. However, you can still run LMS Migrator directly from the Python script, *Option A*, above.)
+1. Navigate to the [*binaries*](binaries) folder above. Download the version of LMS Migrator that is best suited for your computer. Currently pre-built executables are available for Mac OSX and Ubuntu. (Sorry, but there is no pre-built executable available at this time for Windows 10. However, you can still run LMS Migrator directly from the Python script, *Option A*, above.)
 2. Double-click to unpack the program and save it to any folder you can conveniently find again.
 2. *That's it!* You're ready to go. See the directions under *How do I use it?* to continue.
 
