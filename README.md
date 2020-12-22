@@ -10,7 +10,7 @@ LMS Migrator looks for a previous term's course content, which you can export an
 The script unpacks the contens of your old course, updating basic metadata like assignment names, availability dates, and due dates according to what you specify in a stripped-down syllabus. It then re-bundles the updated course as a new Common Cartridge file, which is ready for you to upload back to your LMS.
 
 ## Is it compatable with my LMS?
-Right now, LMS Migrator has only been tested with the [Canvas LMS](https://www.instructure.com/canvas/). Tests with other LMS platforms are pending.
+Right now, LMS Migrator has only been tested with the [Canvas LMS](https://www.instructure.com/canvas/) using Common Cartridge version 1.1.0. It *ought* to work with other LMS platforms such as [Blackboard](https://www.blackboard.com/teaching-learning/learning-management), too, but it has not been tested yet. **please give LMS Migrator a try using other LMS platforms and [reach out](#reaching-out) to let us know how it works.**
 
 ## Installation
 Download *lms_migrator.py* and the template *new_syllabus.xlsx* to a directory of your choice on your computer. 
@@ -38,7 +38,7 @@ pip3 install beautifulsoup4==4.9.3 lxml==4.5.0 openpyxl==3.0.5
 2. *That's it!* You're ready to go. See the directions under *How do I use it?* to continue.
 
 ## How do I use it?
-Make sure the program and its requirements are installed (see *Installation* and *But really, how do I install it?*).
+Make sure the program and its requirements are installed (see [*Installation*](#installation) and [*But really, how do I install it?*](#but-really-how-do-i-install-it).
 1. It's recommended to make a new folder on your computer to keep things tidy & make sure your files are safe. You can call it anything you want, but let's use `lms_migrator` for clarity. **Important:** Always back up your course files before using LMS Migrator!
 2. Your new folder needs to have two files in it:
 	* The Common Cartridge export of your previous semester's course, which you can download from your LMS. For example, *old_course.imscc*.
