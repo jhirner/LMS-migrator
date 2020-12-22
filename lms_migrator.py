@@ -14,7 +14,7 @@ This script requires the following modules and their dependencies:
 """
 
 # ==== INDICATE VERSION NUMBER ==== 
-version = "1.1.0"
+version = "1.1.1"
 
 
 # ==== IMPORT THE REQUIRED MODULES ==== 
@@ -59,7 +59,14 @@ def compress_new_course():
     
     with ZipFile(filepath_new, mode = "w") as new_course_zip:
         for file in files_to_bundle:
-            new_course_zip.write(file)
+        
+            # Determine relative path to the file. Otherwise, the .imscc file
+            # will contain all directories necessary to rebuild the absolute
+            # path to each new file based on where it is currently saved on 
+            # the computer executing this script. That's not useful for the LMS.
+            rel_path = os.path.relpath(file,
+                                       start = filepath_root + "new_course")
+            new_course_zip.write(file, arcname = rel_path)
     
     return
 

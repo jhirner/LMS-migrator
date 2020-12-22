@@ -1,5 +1,9 @@
 # LMS-migrator: Version History
  
+ ## Version 1.1.1 (Released 22 December 2020)
+* Bug fix: Updated course's Common Cartridge file referenced absolute path names and could not be imported via the LMS.
+
+ 
 ## Version 1.1.0 (Released 20 December 2020)
 * Added graphical interface built in *tkinter*.
 * Improved portability of pre-built executable for Mac OSX.
