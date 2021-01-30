@@ -1,6 +1,9 @@
 # LMS-migrator: Version History
+
+## Version 1.1.2 (Released 30 January 2021)
+* Bug fix: some assignments featured metatdata that was not updated properly due to duplicate specification within the XML file. Fixed & improved error handling.
  
- ## Version 1.1.1 (Released 22 December 2020)
+## Version 1.1.1 (Released 22 December 2020)
 * Bug fix: Updated course's Common Cartridge file referenced absolute path names and could not be imported via the LMS.
 
  

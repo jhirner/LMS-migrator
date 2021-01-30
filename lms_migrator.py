@@ -14,7 +14,7 @@ This script requires the following modules and their dependencies:
 """
 
 # ==== INDICATE VERSION NUMBER ==== 
-version = "1.1.1"
+version = "1.1.2"
 
 
 # ==== IMPORT THE REQUIRED MODULES ==== 
