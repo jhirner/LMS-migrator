@@ -296,11 +296,30 @@ def update_file_meta(abs_path_to_file):
         lock_at_str = format_datetime(new_metadata["new_lock_datetime"])
     else:
         lock_at_str = ""
-
-    # Update the XML tags with new values.
-    soup.unlock_at.string = unlock_at_str
-    soup.due_at.string = due_at_str
-    soup.lock_at.string = lock_at_str
+    
+    tags_to_update = {
+                        "unlock_at" : unlock_at_str,
+                        "due_at" : due_at_str,
+                        "lock_at" : lock_at_str,
+                        "all_day_date" : ""
+                     }
+    
+    for tag in tags_to_update.keys():
+        try:
+            exec("soup.{}.string = '{}'".format(tag, tags_to_update[tag]))
+        except AttributeError:
+            # If tag is not present in the soup, add it, then provide the
+            # up-to-date string metadata.
+            tag_to_add = soup.new_tag(tag)
+            soup.contents[0].insert(3, tag_to_add)
+            exec("soup.{}.string = '{}'".format(tag, tags_to_update[tag]))
+    
+    for tag in tags_to_update.keys():
+        try:
+            exec("soup.assignment.{}.string = '{}'".format(tag, tags_to_update[tag]))
+        except AttributeError:
+            pass         
+    
     
     # Write the updated XML back to the file. Note that, weirdly, the soup
     # object is a list that always contains exactly 1 entry -- that is, 
