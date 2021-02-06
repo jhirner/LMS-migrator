@@ -46,7 +46,7 @@ Make sure the program and its requirements are installed (see [*Installation*](#
 		* Again, although you can use any file name you want, it might make your life easier to use something simple & clear like *new_syllabus.xlsx*.
 
 3. Open a command line / terminal and navigate to the folder `lms_migrator` (or whatever you decided to name it) where LMS Migrator, your syllabus, and the old course materials are stored.
-	* For example, if you're using Mac OS X and you downloaded LMS Migrator to a sub-folder on your desktop called `lms_migrator`, you could use the command `cd ~/my-user-name/Desktop/lms_migrator" to navigate to the correct folder. Be sure to replace "my-user-name" with your actual user name.
+	* For example, if you're using Mac OS X and you downloaded LMS Migrator to a sub-folder on your desktop called `lms_migrator`, you could use the command `cd ~/my-user-name/Desktop/lms_migrator` to navigate to the correct folder. Be sure to replace "my-user-name" with your actual user name.
 
 4. Type the following in exactly, or simply copy/paste it. `python3 lms_migrator.py`
 
