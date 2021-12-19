@@ -4,3 +4,5 @@
 
 # Files used in testing
 /testing/*
+
+__pycache__*

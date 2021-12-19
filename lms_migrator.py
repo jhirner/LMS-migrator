@@ -14,7 +14,7 @@ This script requires the following modules and their dependencies:
 """
 
 # ==== INDICATE VERSION NUMBER ==== 
-version = "1.1.2"
+version = "1.1.3"
 
 
 # ==== IMPORT THE REQUIRED MODULES ==== 
@@ -211,11 +211,8 @@ def find_activities():
     # course_settings) based upon the number of characters present.
     new_course_dir = filepath_root + "new_course/"
     act_subdirs = [new_course_dir + dir for dir in os.listdir(new_course_dir)
-                    if (os.path.isdir("new_course/" + dir) and len(dir) > 20)
+                    if (os.path.isdir(new_course_dir + dir) and len(dir) > 20)
                   ]
-    
-    # Print a status update.
-    # print("Done.")
     
     return act_subdirs
 
@@ -270,6 +267,7 @@ def update_file_meta(abs_path_to_file):
         new_metadata = course_metadata[prev_title]
     except KeyError:
         undefined_activities.append(prev_title)
+    
         return
     
     # If an modified title is specified, update it. Otherwise keep the previous
