@@ -14,7 +14,7 @@ This script requires the following modules and their dependencies:
 """
 
 # ==== INDICATE VERSION NUMBER ==== 
-version = "1.1.3"
+version = "1.1.4"
 
 
 # ==== IMPORT THE REQUIRED MODULES ==== 
@@ -151,8 +151,11 @@ def extract_metadata():
         old_title = activity_meta[0]
         
         if activity_meta[2]:
-            new_avail_datetime = datetime.datetime.combine(activity_meta[2],
-                                                           activity_meta[3])
+            # For reasons yet to be determined, openpyxl sometimes reads the new due time (activity_meta[3]) as a datetime object; other times as a time object. datetime.datetime.combine requires that the time component is a time object, so it must be converted if it is read as a datetime object.
+            try:
+                new_avail_datetime = datetime.datetime.combine(activity_meta[2], activity_meta[3])
+            except TypeError:
+                new_avail_datetime = datetime.datetime.combine(activity_meta[2], activity_meta[3].time())
         else:
             new_avail_datetime = None
         
